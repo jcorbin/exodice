@@ -1,6 +1,6 @@
-// label font and text
-label_font = "Segoe UI Symbol";
-labels = [
+use <octernary.scad>;
+
+pips = [
     "⠂",
     "⠄⠁",
     "⠄⠂⠁",
@@ -32,18 +32,22 @@ labels = [
     "⣿⣿⣿"
 ];
 
-// label_font = "Liberation Sans";
-// labels = [
-//     "1", "2", "3", "4",
-//     "5", "6.", "7", "8",
-//     "9.", "10", "11", "12",
-//     "13", "14", "15", "16",
-//     "17", "18", "19", "20",
-//     "21", "22", "23", "24"
-// ];
+module pip(i) {
+    text(pips[i], size = 0.2, font = "Segoe UI Symbol", halign = "center", valign = "center", $fn = 16);
+}
 
-module label(i) {
-    text(labels[i], size = 0.2, font = label_font, halign = "center", valign = "center", $fn = 16);
+module ordinal_label(i) {
+    text(str(i+1), size = 0.2, font = "Liberation Sans", halign = "center", valign = "center", $fn = 16);
+}
+
+module octernary_mark(i) {
+    // better pentagon alignment
+    translate([0, -0.1, 0]) rotate([0, 0, 180])
+
+    // center and shrink
+    scale([0.5, 0.5, 1]) translate([-0.5, -0.5, 0])
+
+    octernary(i+1);
 }
 
 // how deeply label features are stamped into each face
@@ -54,7 +58,11 @@ label_depth = 0.05;
 module face(i) {
     union() {
         cube(6, center=true);
-        translate([0, 0, -3 - label_depth]) linear_extrude(height=label_depth) label(i);
+        translate([0, 0, -3 - label_depth]) #linear_extrude(height=label_depth) {
+            // ordinal_label(i);
+            // pip(i);
+            octernary_mark(i);
+        }
     }
 }
 
