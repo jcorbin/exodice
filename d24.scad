@@ -60,7 +60,10 @@ module face(i) {
 
 // pentagonal icositetrahedron
 //
-// descended from <https://www.printables.com/model/318916>
+// Descended from <https://www.printables.com/model/318916>
+//
+// See <https://mathworld.wolfram.com/PentagonalIcositetrahedron.html>
+// for futher exploration on the the tribonacci constant surprise
 function trib(x) = (x <= 3 ? 1 : trib(x-1) + trib(x-2) + trib(x-3) );
 tribonacci = trib(18) / trib(17);
 rotation = 45 + atan2(1, tribonacci^2);
@@ -91,6 +94,6 @@ module die() {
     }
 }
 
-// this final transformation places face 0 perpendicualr to the south-z axis as
+// this final transformation places face 0 perpendicular to the south-z axis as
 // a good default for print orientation
 rotate([0, 180-tilt, 0]) rotate([0, 0, -rotation]) die();
