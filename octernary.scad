@@ -1,10 +1,14 @@
-weight = 2;
-width = 80;
-half = width / 2;
+weight = 3;
+width = 100;
 
-head = 20;
-foot = 20;
-mark = 10;
+head_rad = 30;
+head_len = 40;
+
+foot = 40;
+mark = 20;
+mark_at = 40;
+
+head_base = 2*weight * head_len / head_rad;
 
 points = [
 
@@ -15,20 +19,20 @@ points = [
     [width, -weight],
 
     // 4-5: arrow head bases
-    [width - 2*weight,  weight],
-    [width - 2*weight, -weight],
+    [width - head_base,  weight],
+    [width - head_base, -weight],
 
     // 6-7: footer bases
     [2*weight,  weight],
     [2*weight, -weight],
 
     // 8-9: top arrow head
-    [width - head, head + weight],
-    [width - head, head - weight],
+    [width - head_len, head_rad + weight],
+    [width - head_len, head_rad - weight],
 
     // 10-11: bottom arrow head
-    [width - head, -head - weight],
-    [width - head, -head + weight],
+    [width - head_len, -head_rad - weight],
+    [width - head_len, -head_rad + weight],
 
     // 12-15: footer
     [0,         foot],
@@ -37,16 +41,16 @@ points = [
     [2*weight, -foot],
 
     // 16-19: cross mark
-    [half - weight,  mark],
-    [half + weight,  mark],
-    [half - weight, -mark],
-    [half + weight, -mark],
+    [mark_at - weight,  mark],
+    [mark_at + weight,  mark],
+    [mark_at - weight, -mark],
+    [mark_at + weight, -mark],
 
     // 20-23: cross mark bases
-    [half - weight,  weight],
-    [half - weight, -weight],
-    [half + weight,  weight],
-    [half + weight, -weight],
+    [mark_at - weight,  weight],
+    [mark_at - weight, -weight],
+    [mark_at + weight,  weight],
+    [mark_at + weight, -weight],
 
 ];
 
@@ -132,7 +136,7 @@ module octernary(n) {
     polygon(points, paths=[paths[n-1]]);
 }
 
-ch = 0.75;
+ch = 1.0;
 cw = 1.5;
 
 translate([0, 7*ch, 0]) {
