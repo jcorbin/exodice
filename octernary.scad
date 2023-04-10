@@ -1,3 +1,7 @@
+function trib(x) = (x <= 3 ? 1 : trib(x-1) + trib(x-2) + trib(x-3) );
+tribonacci = trib(18) / trib(17);
+tip_angle = acos(2 - tribonacci);
+
 weight = 3;
 width = 100;
 
@@ -5,8 +9,8 @@ foot_bevel = 2;
 cross_bevel = 2;
 head_bevel = 2;
 
-head_rad = 30;
 head_len = 40;
+head_rad = tan(tip_angle/2) * head_len;
 
 tip_narrow = 0.4;
 
