@@ -32,36 +32,46 @@ pips = [
     "⣿⣿⣿"
 ];
 
-module pip(i) {
-    text(pips[i], size = 0.2, font = "Segoe UI Symbol", halign = "center", valign = "center", $fn = 16);
+module pip(id) {
+    text(pips[id], size = 0.2, font = "Segoe UI Symbol", halign = "center", valign = "center", $fn = 16);
 }
 
-module ordinal_label(i) {
-    text(str(i+1), size = 0.2, font = "Liberation Sans", halign = "center", valign = "center", $fn = 16);
+module ordinal_label(id) {
+    text(str(id+1), size = 0.2, font = "Liberation Sans", halign = "center", valign = "center", $fn = 16);
 }
 
-module octernary_mark(i) {
+module octernary_mark(id) {
     // better pentagon alignment
     translate([0, -0.1, 0]) rotate([0, 0, 180])
 
     // center and shrink
     scale([0.5, 0.5, 1]) translate([-0.5, -0.5, 0])
 
-    octernary(i+1);
+    octernary(id+1);
 }
 
 // how deeply label features are stamped into each face
 label_depth = 0.05;
 
+label_perm = [
+  16, 22, 5, 3,
+  19, 21, 6, 0,
+  15, 9, 12, 11,
+  10, 13, 14, 8,
+  23, 17, 2, 4,
+  20, 18, 1, 7
+];
+
 // each face is defined by a cube with a protruding label feature that will be
 // "stamped into" the face of result polyhedra
-module face(i) {
+module face(id) {
+    label_id = label_perm[id];
     union() {
         cube(6, center=true);
         translate([0, 0, -3 - label_depth]) #linear_extrude(height=label_depth) {
-            // ordinal_label(i);
-            // pip(i);
-            octernary_mark(i);
+            // ordinal_label(label_id);
+            // pip(label_id);
+            octernary_mark(label_id);
         }
     }
 }
@@ -80,12 +90,12 @@ tilt = atan2(tribonacci - 1, cos(angle) - sin(angle));
 
 // each facet is an arrangement of 4 face cubes, whose south-z faces intersect
 // at a 4-vertex of the final icositetrahedron
-module facet(i) {
-    j = 4 * i;
-    rotate([0, tilt, rotation +   0]) translate([0, 0, 4]) face(j + 0);
-    rotate([0, tilt, rotation +  90]) translate([0, 0, 4]) face(j + 1);
-    rotate([0, tilt, rotation + 180]) translate([0, 0, 4]) face(j + 2);
-    rotate([0, tilt, rotation + 270]) translate([0, 0, 4]) face(j + 3);
+module facet(id) {
+    face_id = 4 * id;
+    rotate([0, tilt, rotation +   0]) translate([0, 0, 4]) face(face_id + 0);
+    rotate([0, tilt, rotation +  90]) translate([0, 0, 4]) face(face_id + 1);
+    rotate([0, tilt, rotation + 180]) translate([0, 0, 4]) face(face_id + 2);
+    rotate([0, tilt, rotation + 270]) translate([0, 0, 4]) face(face_id + 3);
 }
 
 // the die is formed by 6 facets aligned along each primary cube axis,
