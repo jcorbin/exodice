@@ -142,8 +142,11 @@ paths = [
 ];
 
 module octernary(n) {
-    scale([1/width, 1/width, 1])
-    translate([0, foot, 0])
+    h = max(foot, head_rad + weight);
+    max_dim = max(width, 2*h);
+
+    scale([1/max_dim, 1/max_dim, 1])
+    translate([0, h, 0])
     polygon(points, paths=[paths[n-1]]);
 }
 
