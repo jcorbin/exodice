@@ -42,7 +42,7 @@ module ordinal_label(id) {
 
 module octernary_mark(id) {
     // better pentagon alignment
-    translate([0, -0.1, 0]) rotate([0, 0, 180])
+    scale([1.3, 1.3, 1]) translate([-0.05, -0.05, 0]) rotate([0, 0, 180])
 
     // center and shrink
     scale([0.5, 0.5, 1]) translate([-0.5, -0.5, 0])
