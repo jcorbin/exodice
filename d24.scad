@@ -38,7 +38,7 @@ module pip(id) {
 
 module ordinal_label(id) {
     rotate([0, 0, 90])
-    text(str(id+1), size = 0.2, font = "Liberation Sans", halign = "center", valign = "center", $fn = 16);
+    text(str(id+1), size = 0.2, font = "DejaVu Sans:style=Bold Oblique", halign = "center", valign = "center", $fn = 16);
 }
 
 module octernary_mark(id) {
