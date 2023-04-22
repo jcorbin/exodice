@@ -55,12 +55,12 @@ module octernary_mark(id) {
 label_depth = 0.05;
 
 label_perm = [
-  16, 22, 5, 3,
-  19, 21, 6, 0,
-  15, 9, 12, 11,
-  10, 13, 14, 8,
-  23, 17, 2, 4,
-  20, 18, 1, 7
+  9, 2, 16, 23,
+  21, 12, 14, 7,
+  24, 13, 11, 1,
+  22, 10, 15, 3,
+  5, 6, 17, 18,
+  4, 19, 8, 20
 ];
 
 // each face is defined by a cube with a protruding label feature that will be
